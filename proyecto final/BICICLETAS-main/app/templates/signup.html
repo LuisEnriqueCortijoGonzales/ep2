@@ -1,0 +1,37 @@
+{% from "_formsH.html" import render_field %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name ="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="..\static\css\signin.css">
+        <link href='https://css.gg/home-alt.css' rel='stylesheet'>
+        <title>Registrarse</title>
+    </head>
+    <body>
+        <div class="cuerpo">
+            <div class="lado-izquierdo">
+                <h3 class="home"><a href="/">volver a la página principal</a></h3>
+                <div class="text">
+                    <h2>Regístrate</h2>
+                </div>
+            </div>
+            <div class="lado-derecho">
+                <div class="form">
+                    <form method=post class="formulario">
+
+                        {{ render_field(form.username) }}
+                        {{ render_field(form.password) }}
+                        {{ render_field(form.email) }}
+
+                        <input type="submit" class="btn" value="Registrarse">
+                        <h3>¿Ya tienes cuenta? <a href="/login">Iniciar sesión</a></h3>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

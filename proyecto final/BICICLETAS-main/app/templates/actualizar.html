@@ -1,0 +1,36 @@
+{% from "_formsH.html" import render_field %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name ="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="..\static\css\actualizar.css">
+
+        <title>Actualizar alumno</title>
+        
+    </head>
+    <body>
+        <div class="header">
+            <h1>Editar bicicleta [ID] {{bicicleta.id}} : {{bicicleta.marca}} {{bicicleta.modelo}}</h1>
+        </div>
+        <div class="main">
+            <div class="img"><img width="400px"src="{{bicicleta.imagen}}"></img><a href="/agregar-bicicleta"><button class="btn">Regresar</button></a></div>
+            
+            <div class="form">
+                <form method=post class="formulario">
+                    <label>Marca: </label>{{ render_field(form.marca, value=bicicleta.marca) }}
+                    <label>Modelo: </label>{{ render_field(form.modelo, value=bicicleta.modelo) }}
+                    <label>Tamaño de aro: </label>{{ render_field(form.aro, value=bicicleta.aro) }}
+                    <label>Color: </label>{{ render_field(form.color, value=bicicleta.color) }}
+                    <label>Tipo: </label>{{ render_field(form.tipo, value=bicicleta.tipo) }}
+                    <label>Nivel: </label>{{ render_field(form.nivel, value=bicicleta.nivel) }}
+                    <label>Precio: </label>{{ render_field(form.precio, value=bicicleta.precio) }}
+                    <label>image URL: </label>{{ render_field(form.imagen, value=bicicleta.imagen) }}
+                
+                    <input type="submit" class="btn btn-primary" value="Actualizar">
+                </form>
+            </div>
+        </div>
+    </div>
+    </body>

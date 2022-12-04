@@ -1,0 +1,144 @@
+{% from "_formsH.html" import render_field %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name ="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="..\static\css\index.css">
+
+        <title>Index</title>
+        <style>
+            .hidden {
+                display: None;
+                padding: 25px;
+                margin-bottom: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="header-l"><h1>¡Bienvenido, {{usuario.username}}! email: {{usuario.email}}</h1></div>
+            <div class="header-r"><button class="logout"><a href="/logout">Log Out</a></button></div>
+        </div>
+        <div class="main">
+            <div class="form">
+                
+            <h1>Agregar bicicleta</h1>
+                <form method=post class="formulario">
+
+                    {{ render_field(form.marca) }}
+                    {{ render_field(form.modelo) }}
+                    {{ render_field(form.aro) }}
+                    {{ render_field(form.color) }}
+                    {{ render_field(form.tipo) }}
+                    {{ render_field(form.nivel) }}
+                    {{ render_field(form.precio) }}
+                    {{ render_field(form.imagen) }}
+                
+                    <input type="submit" class="btn btn-primary" value="Registrar">
+                </form>
+            </div>
+            <div class="tablas">
+                <table class="tablaBicicletas">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Tamaño de aro</th>
+                        <th>Color</th>
+                        <th>Tipo</th>
+                        <th>Nivel</th>
+                        <th>Precio S/.</th>
+                        <th>Imagen</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <tr>
+                        {% for bicicleta in bicicletas %}
+                        <td id = "bicicleta">
+                            {{ bicicleta.id }}
+                        </td>
+                        <td>
+                            {{ bicicleta.marca }}
+                        </td>
+                        <td>
+                            {{ bicicleta.modelo }}
+                        </td>
+                        <td>
+                            {{ bicicleta.aro }}
+                        </td>
+                        <td>
+                            {{ bicicleta.color }}
+                        </td>
+                        <td>
+                            {{ bicicleta.tipo }}
+                        </td>
+                        <td>
+                            {{ bicicleta.nivel }}
+                        </td>
+                        <td>
+                            {{ bicicleta.precio }}
+                        </td>
+                        <td>
+                            <a href="{{bicicleta.imagen}}"><img alt="{{bicicleta.modelo}}" src="{{ bicicleta.imagen }}" height="150px" width="150px"></img></a>
+                        </td>
+                        <td>
+                            <a href="actualizar/{{ bicicleta.id }}">
+                                <button id="{{ bicicleta.id }}" onclick="update_data({{ bicicleta.id }})" class="">Actualizar</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="delete/{{bicicleta.id}}">
+                                <button id="{{bicicleta.id}}" onclick="delete_data({{ bicicleta.id }})" class="">Borrar</button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        <div id="show-info" class="hidden">
+            <div class="box-background">
+            </div>
+            <div class="box">
+                <div id="content" class="content">
+                    <h1 class="box-title">Datos de la bicicleta</h1>
+                    <ul id="todos">
+
+                    </ul>
+                    <button class="btn"onclick="ocultar()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        
+        function update_data(user) {
+            fetch('/actualizar/' + user, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function(response) {
+                return response.json();
+            }).then(function(responseJSON) {})
+        }
+        
+        function delete_data(id) {
+            fetch('/delete/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function(response) {
+                return response.json();
+            }).then(function(responseJson) {
+                location.reload();
+            })
+        }
+    </script>
+</html>
